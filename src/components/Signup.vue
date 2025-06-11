@@ -7,9 +7,7 @@
       <input type="password" placeholder="password" v-model="password">
       <button>Sign up</button>
     </form>
-    <!-- <div v-if="error">
-      {{ error }}
-    </div> -->
+   
   </div>
 </template>
 
@@ -28,8 +26,9 @@ export default {
         let res = await auth.createUserWithEmailAndPassword(email.value,password.value)
         if(!res){
           throw new Error("Could not create user")
-          console.log(res.user);
         }
+        res.user.updateProfile({displayName:displayName.value})
+        console.log(res.user);
       }catch(err){
         error.value =err.message
       }
