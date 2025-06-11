@@ -7,10 +7,14 @@
       <input type="password" placeholder="password" v-model="password">
       <button>Sign up</button>
     </form>
+    <!-- <div v-if="error">
+      {{ error }}
+    </div> -->
   </div>
 </template>
 
 <script>
+import { auth } from '@/firebase/config';
 import { ref } from 'vue';
 
 export default {
@@ -18,10 +22,19 @@ export default {
     let displayName = ref("")
     let email = ref("")
     let password = ref("")
-    let signUp =()=>{
-      console.log(displayName.value,email.value,password.value );
+    let error = ref(null)
+    let signUp =async()=>{
+      try{
+        let res = await auth.createUserWithEmailAndPassword(email.value,password.value)
+        if(!res){
+          throw new Error("Could not create user")
+          console.log(res.user);
+        }
+      }catch(err){
+        error.value =err.message
+      }
     }
-    return {displayName,email,password,signUp}
+    return {error,displayName,email,password,signUp}
   }
 }
 </script>
