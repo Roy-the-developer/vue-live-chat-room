@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { auth } from '@/firebase/config';
+import useSignup from '@/composable/useSignup';
 import { ref } from 'vue';
 
 export default {
@@ -20,18 +20,12 @@ export default {
     let displayName = ref("")
     let email = ref("")
     let password = ref("")
-    let error = ref(null)
+    
+
+    let {error,creatAccount}= useSignup()
     let signUp =async()=>{
-      try{
-        let res = await auth.createUserWithEmailAndPassword(email.value,password.value)
-        if(!res){
-          throw new Error("Could not create user")
-        }
-        res.user.updateProfile({displayName:displayName.value})
-        console.log(res.user);
-      }catch(err){
-        error.value =err.message
-      }
+      let res= await creatAccount(email.value,password.value,displayName.value)
+      console.log(res.user);
     }
     return {error,displayName,email,password,signUp}
   }
