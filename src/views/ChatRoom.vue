@@ -1,9 +1,11 @@
 <template>
-  <h1>Chatroom</h1>
+  <NavBar></NavBar>
 </template>
 
 <script>
+import NavBar from '../components/NavBar'
 export default {
+  components: { NavBar },
 
 }
 </script>

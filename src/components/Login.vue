@@ -21,12 +21,14 @@ export default {
     let email = ref("")
     let password = ref("")
     let {error,loginAccount} = useLogin()
+
     let login =async()=>{
       let res = await loginAccount(email.value,password.value)
       if(res){
         context.emit("enterChatroom")
       }
     }
+    
     return {email,password,login,error}
   }
 }
