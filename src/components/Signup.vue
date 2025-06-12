@@ -22,9 +22,9 @@ export default {
     let password = ref("")
     
 
-    let {error,creatAccount}= useSignup()
+    let {error,createAccount}= useSignup()
     let signUp =async()=>{
-      let res= await creatAccount(email.value,password.value,displayName.value)
+      let res= await createAccount(email.value,password.value,displayName.value)
       console.log(res.user);
     }
     return {error,displayName,email,password,signUp}

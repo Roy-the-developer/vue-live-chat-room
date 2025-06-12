@@ -2,7 +2,7 @@ import { auth } from "@/firebase/config"
 import { ref } from "vue"
 
 let error = ref(null)
-let creatAccount=async(email,password,displayName)=>{
+let createAccount=async(email,password,displayName)=>{
     
     try{
         let res = await auth.createUserWithEmailAndPassword(email,password)
@@ -20,7 +20,7 @@ let creatAccount=async(email,password,displayName)=>{
 
 let useSignup=()=>{
 
-    return {error,creatAccount}
+    return {error,createAccount}
 }
 
 export default useSignup
