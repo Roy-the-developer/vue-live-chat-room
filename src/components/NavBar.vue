@@ -1,24 +1,28 @@
 <template>
-  <nav class="container">
-    <div>
-        <p>Hi display name</p>
-        <p class="email">Login as email</p>
-    </div>
-    <button @click="logout">Logout</button>
-  </nav>
+  <div v-if="user">
+    <nav class="container">
+        <div>
+            <p>Hi {{ user.displayName }}</p>
+            <p class="email">Login as {{ user.email }}</p>
+        </div>
+        <button @click="logout">Logout</button>
+    </nav>
+  </div>
 </template>
 
 <script>
 import useLogout from '@/composable/useLogout';
+import getUser from '@/composable/getUser';
 export default {
     setup(){
         let {error,logoutAccount}=useLogout()
-
+        let {user} = getUser()
         let logout =async()=>{
             await logoutAccount()
         }
 
-        return {error,logout}
+
+        return {user,error,logout}
     }
 }
 </script>
